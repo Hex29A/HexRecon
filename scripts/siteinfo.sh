@@ -26,7 +26,7 @@ fi
 
 HOST=$1
 NETBLOCK=`curl --silent http://toolbar.netcraft.com/site_report?url=$HOST | grep Netblock | head -n 1 | sed -e 's/<[^>]*>//g' -e 's/Netblock\ owner//g'`
-IP=`host $HOST|head -n 1|awk '{print $4}'`
+IP=`host $HOST|head -n 1|sed -e 's/has\ address/X/g' |awk '{print $3}'`
 REVERSE=`dig -x $IP|grep IN|tail -n 1| awk '{print $5}'`
 
 
